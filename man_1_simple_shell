@@ -1,0 +1,12 @@
+.Dd 07/29/2022
+.Dt simple_shell 3
+.Os UBUNTU 20.04 LTS
+.Sh NAME
+.Nm simple_shell
+.Nd
+.Sh SYNOPSIS
+.Nm
+.Pp
+.Nm
+.Ar
+.Sh DESCRIPTION
