@@ -113,7 +113,7 @@ char *path_concat(char *s1, char *s2)
 		s2 = "";
 
 	path_str = malloc(sizeof(char) * (_strlen(s1) + _strlen(s2) + 2));
-	if (s == NULL)
+	if (path_str == NULL)
 		exit(-1);
 
 	for (i = 0; s1[i]; i++)
