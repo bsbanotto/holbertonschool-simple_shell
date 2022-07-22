@@ -35,7 +35,7 @@ void prompt_line(void)
 
 char clear(void)
 {
-	write(1, "\e[1;1H\e[2J", 7);
+	write(1, "\033[H033[J", 6);
 	return (0);
 }
 

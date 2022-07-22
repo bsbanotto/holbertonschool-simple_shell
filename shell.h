@@ -17,7 +17,7 @@
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
 char *_strdup(char *src);
-char _strcmp(char *s1, char *s2);
+int _strcmp(char *s1, char *s2);
 char *path_concat(char *s1, char *s2);
 
 /* Shell Prototypes */
