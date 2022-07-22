@@ -43,20 +43,43 @@ char clear(void)
  * cmd_prompt - Takes input from main and executes infinite loop
  * @program: passed in argument for what to do
  *
- *
  * Return: void
  */
+
 void cmd_prompt(char *program)
 {
 	char *buffer = NULL;
 	size_t bufsize;
+	char *tokens;
+	char *duplicate;
+	char *first_arg;
+	int i = 0, arg_count, status = 1;
 
-	while (1)
+	while (status)
 	{
 		printf("$ ");
 		getline(&buffer, &bufsize, stdin);
-		/* execve(program[0], program, NULL); */
+		duplicate = _strdup(buffer);
+		tokens = strtok(duplicate, " \n\t\a");
+
+		while (i < 1)
+		{
+			first_arg = tokens;
+			printf("%s\n", first_arg);
+			tokens = strtok(NULL, " \n\t\a");
+			i++;
+		}
+		arg_count = 1;
+		while (tokens != NULL)
+		{
+			arg_count++;
+			tokens = strtok(NULL, " ");
+		}
+
+		printf("%d\n", arg_count);
+
 		printf("%s", buffer);
+		i--;
 	}
 }
 
