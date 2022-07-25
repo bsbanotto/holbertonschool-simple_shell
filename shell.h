@@ -12,6 +12,28 @@
 #include <signal.h>
 #include <limits.h>
 
+/* Path linked list structure */
+
+/**
+ * struct path_s - path singly linked list
+ * @dir: directories in path
+ * @next: points to next node
+ *
+ * Description: singly linked list ndoe structure for path
+ */
+
+typedef struct path_s
+{
+	char *dir;
+	struct path_s *next;
+} path_t;
+
+/* Linked List Prototypes */
+
+int print_list(const path_t *h);
+path_t *add_node_end(path_t **head, char *dir);
+path_t path_list(char *path);
+
 /* String Prototypes */
 
 int _strlen(char *s);

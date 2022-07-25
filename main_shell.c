@@ -46,7 +46,7 @@ char clear(void)
  * Return: void
  */
 
-void cmd_prompt(char *program)
+void cmd_prompt(__attribute__((unused))char *program)
 {
 	char *buffer = NULL;
 	size_t bufsize;
