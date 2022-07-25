@@ -50,7 +50,7 @@ void cmd_prompt(char *program);
 void prompt_line(void);
 char clear(void);
 char *read_input(void);
-int run(char *args, char *program, int n);
+int run(char *path, char *argVec);
 int check_command(char *args, char *program, int n);
 
 

@@ -46,7 +46,7 @@ char clear(void)
  * Return: void
  */
 
-void cmd_prompt(char *program)
+void cmd_prompt(__attribute__((unused))char *program)
 {
 	char *buffer = NULL;
 	size_t bufsize;
@@ -54,6 +54,12 @@ void cmd_prompt(char *program)
 	char *duplicate;
 	char *first_arg;
 	int i = 0, status = 1;
+	char *path;
+
+	path = malloc(PATH_MAX * sizeof(char));
+	path = getcwd(path, sizeof(PATH_MAX));
+
+	printf("%s", path);
 
 	while (status)
 	{
@@ -69,7 +75,7 @@ void cmd_prompt(char *program)
 			tokens = strtok(NULL, " \n\t\a");
 			i++;
 		}
-		status = run(first_arg, program, 1);
+		status = run(path, tokens);
 
 		printf("%s", buffer);
 		i--;

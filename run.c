@@ -10,12 +10,10 @@
  * Return: int, 1 to continue loop, any other int on failure
  */
 
-int run(char *args, char *program, __attribute__((unused))int n)
+int run(char *path, char *argVec)
 {
 	pid_t child;
 	int status;
-
-	n = 1;
 
 	child = fork();
 	if (child == -1)
@@ -25,7 +23,7 @@ int run(char *args, char *program, __attribute__((unused))int n)
 	}
 	if (child == 0)
 	{
-		execvp(args, &program);
+		execve(path, &argVec, NULL);
 		exit(0);
 	}
 	else
