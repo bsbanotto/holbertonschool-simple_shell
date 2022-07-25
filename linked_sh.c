@@ -71,17 +71,17 @@ path_t *add_node_end(path_t **head, char *dir)
 
 
 /**
- * path_list - turns tokenized path into linked list
+ * arg_count - gets num of args from path
  *
  * @path: path variable to be modified
  *
- * Return: pointer to head
+ * Return: num of args
  */
 
 int arg_count(char *path)
 {
 	int count = 1;
-	char* dup = strdup(path);
+	char *dup = strdup(path);
 	char *tokens = strtok(dup, " \n\t\a");
 
 	while (tokens != NULL)
@@ -89,13 +89,20 @@ int arg_count(char *path)
 		count++;
 		tokens = strtok(NULL, " ");
 	}
-	return(count);
+	return (count);
 }
 
+/**
+ * path_list - turns tokenized path into linked list
+ *
+ * @path: path variable to be modified
+ *
+ * Return: pointer to head
+ */
 
 path_t path_list(char *path)
 {
-        int i = 0;
+	int i = 0;
 	path_t *head;
 	char *p = strtok(path, "/");
 	path_t *first = malloc(sizeof(path_t));
@@ -112,11 +119,11 @@ path_t path_list(char *path)
 	}
 
 	/* Saves tokens to linked list */
-	while(i < count)
+	while (i < count)
 	{
 		p = strtok(NULL, " ");
 		add_node_end(&head, p);
 	}
 
-	return(*head);
+	return (*head);
 }
