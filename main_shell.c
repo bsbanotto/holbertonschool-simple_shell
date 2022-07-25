@@ -46,14 +46,14 @@ char clear(void)
  * Return: void
  */
 
-void cmd_prompt(__attribute__((unused))char *program)
+void cmd_prompt(char *program)
 {
 	char *buffer = NULL;
 	size_t bufsize;
 	char *tokens;
 	char *duplicate;
 	char *first_arg;
-	int i = 0, arg_count, status = 1;
+	int i = 0, status = 1;
 
 	while (status)
 	{
@@ -69,14 +69,7 @@ void cmd_prompt(__attribute__((unused))char *program)
 			tokens = strtok(NULL, " \n\t\a");
 			i++;
 		}
-		arg_count = 1;
-		while (tokens != NULL)
-		{
-			arg_count++;
-			tokens = strtok(NULL, " ");
-		}
-
-		printf("%d\n", arg_count);
+		status = run(first_arg, program, 1);
 
 		printf("%s", buffer);
 		i--;

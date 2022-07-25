@@ -28,6 +28,8 @@ typedef struct path_s
 	struct path_s *next;
 } path_t;
 
+extern char **environ;
+
 /* Linked List Prototypes */
 
 int print_list(const path_t *h);
@@ -48,7 +50,8 @@ void cmd_prompt(char *program);
 void prompt_line(void);
 char clear(void);
 char *read_input(void);
-
+int run(char *args, char *program, int n);
+int check_command(char *args, char *program, int n);
 
 
 
