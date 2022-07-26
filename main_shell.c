@@ -51,34 +51,40 @@ void cmd_prompt(__attribute__((unused))char *program)
 	char *buffer = NULL;
 	size_t bufsize;
 	char *tokens;
-	char *duplicate;
-	char *first_arg;
+	char *dup;
 	int i = 0, status = 1;
-	char *path;
-
-	path = malloc(PATH_MAX * sizeof(char));
-	path = getcwd(path, sizeof(PATH_MAX));
-
-	printf("%s", path);
+	char *path = "/usr/bin/";
+	char pathdup[] = "/usr/bin/";
 
 	while (status)
 	{
 		printf("$ ");
 		getline(&buffer, &bufsize, stdin);
-		duplicate = _strdup(buffer);
-		tokens = strtok(duplicate, " \n\t\a");
+		dup = _strdup(buffer);
+		tokens = strtok(dup, " \n\t\a");
 
 		while (i < 1)
 		{
-			first_arg = tokens;
+			char const *first_arg = tokens;
 			printf("%s\n", first_arg);
 			tokens = strtok(NULL, " \n\t\a");
 			i++;
 		}
-		status = run(path, tokens);
+
+		path = malloc(sizeof(char) * (strlen(dup) + strlen(path) + 1));
+		path = strcat(pathdup, first_arg);
+		path = strcat(pathdup, first_arg);
+		
+		if (path == NULL)
+			printf("Nope. - - - - - - - - - - - -");
+		else
+			printf("Path is: %s\n\n\n", path);
+
+		execve(path, first_arg, NULL);
 
 		printf("%s", buffer);
 		i--;
+
 	}
 }
 
