@@ -28,64 +28,49 @@ void prompt_line(void)
 }
 
 /**
- * clear - Clears the terminal text
- *
- * Return: zero on success;
- */
-
-char clear(void)
-{
-	write(1, "\033[H033[J", 6);
-	return (0);
-}
-
-/**
  * cmd_prompt - Takes input from main and executes infinite loop
  * @program: passed in argument for what to do
  *
  * Return: void
  */
 
-void cmd_prompt(__attribute__((unused))char *program)
+void cmd_prompt(char *program)
 {
-	char *buffer = NULL;
-	size_t bufsize;
-	char *tokens;
-	char *dup;
-	int i = 0, status = 1;
-	char *path = "/usr/bin/";
-	char pathdup[] = "/usr/bin/";
+	char *line;
+	char **args;
+	int i, status = 1;
+	path_t *env_path = _environment();
+	path_t *main_path = main_path_list();
+
+	signal(SIGINT, signal_handler);
 
 	while (status)
 	{
-		printf("$ ");
-		getline(&buffer, &bufsize, stdin);
-		dup = _strdup(buffer);
-		tokens = strtok(dup, " \n\t\a");
-
-		while (i < 1)
+		line = read_cmd();
+		if (line[0] == '\n')
 		{
-			char const *first_arg = tokens;
-			printf("%s\n", first_arg);
-			tokens = strtok(NULL, " \n\t\a");
-			i++;
+			free(line);
+			continue;
+		}
+		args = tokens(line, " \t\a\n");
+		if (check_if_builtin(args, line) == 1)
+			status = run(args, program, 1);
+		while (args[i] != NUL)
+		{
+		if (args[i])
+			free(args[i]);
+		i++;
 		}
 
-		path = malloc(sizeof(char) * (strlen(dup) + strlen(path) + 1));
-		path = strcat(pathdup, first_arg);
-		path = strcat(pathdup, first_arg);
-		
-		if (path == NULL)
-			printf("Nope. - - - - - - - - - - - -");
-		else
-			printf("Path is: %s\n\n\n", path);
-
-		execve(path, first_arg, NULL);
-
-		printf("%s", buffer);
-		i--;
-
+	if (line)
+		free(line);
+	if (args)
+		free(args);
 	}
+	free(args);
+	free(line);
+	free_linked_list(main_path);
+	free_linked_list(env_path);
 }
 
 /**
@@ -108,4 +93,18 @@ char *read_input(void)
 		exit(0);
 	}
 	return (buffer);
+}
+
+/**
+ * signal_handler - Handles terminate signal
+ * @sig: signal
+ */
+
+void signal_handler (int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		prompt_line();
+	}
 }

@@ -10,10 +10,10 @@
  * Return: int, 1 to continue loop, any other int on failure
  */
 
-int run(char *path, char *argVec)
+int run(char **args, char *program, int n)
 {
 	pid_t child;
-	int status;
+	int status, linenum = n;
 
 	child = fork();
 	if (child == -1)
@@ -23,7 +23,7 @@ int run(char *path, char *argVec)
 	}
 	if (child == 0)
 	{
-		execve(path, &argVec, NULL);
+		check_valid_command(args, program, linenum);
 		exit(0);
 	}
 	else
@@ -33,4 +33,35 @@ int run(char *path, char *argVec)
 		} while (WIFEXITED(status) == 0 && WIFSIGNALED(status) == 0);
 	}
 	return (1);
+}
+
+/**
+ * check_valid_command - Searches PATH for applicable command
+ * @args: args passed from command line
+ * @program: name of shell
+ * @n: integer = 1
+ * Return: 0 on success
+ */
+
+int check_valid_command(char **args, char *program, int n)
+{
+	char *result;
+	int linenum = n;
+	path_t *main_path = make_path_list();
+
+	if (args[0][0] == '/' || args[0][0] == '.')
+	{
+		if (execve(args[0], args, environ) == -1)
+		__error(args, program, 3, linenum);
+	}
+	else
+	{
+		result = (check_path(main_path, args[0]));
+		if (!result)
+			__error(args, program, 1, linenum);
+		if (execve(result, args, environ) == -1)
+			__error(args, prpgram, 2, linenum);
+	}
+
+	return (0);
 }
