@@ -95,8 +95,6 @@ int arg_count(char *path)
 /**
  * path_list - turns tokenized path into linked list
  *
- * @path: path variable to be modified
- *
  * Return: pointer to head
  */
 

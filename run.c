@@ -38,12 +38,11 @@ int run(char **args, char *program, int n)
 /**
  * check_valid_command - Searches PATH for applicable command
  * @args: args passed from command line
- * @program: name of shell
- * @n: integer = 1
+ *
  * Return: 0 on success
  */
 
-int check_valid_command(char **args, __attribute__((unused))char *program, __attribute__((unused))int n)
+int check_valid_command(char **args)
 {
 	char *result;
 	path_t *main_path = path_list();

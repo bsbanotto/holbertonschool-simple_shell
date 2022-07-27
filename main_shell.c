@@ -74,7 +74,7 @@ void cmd_prompt(char *program)
 }
 
 /**
- * read_input - Takes arguments, tokenizes
+ * read_cmd - Takes arguments, tokenizes
  *
  * Return: Pointer to string
  */
