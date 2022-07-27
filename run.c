@@ -52,15 +52,15 @@ int check_valid_command(char **args, char *program, int n)
 	if (args[0][0] == '/' || args[0][0] == '.')
 	{
 		if (execve(args[0], args, environ) == -1)
-		__error(args, program, 3, linenum);
+		exit(99);
 	}
 	else
 	{
 		result = (check_path(main_path, args[0]));
 		if (!result)
-			__error(args, program, 1, linenum);
+			exit(99);
 		if (execve(result, args, environ) == -1)
-			__error(args, prpgram, 2, linenum);
+			exit(99);
 	}
 
 	return (0);
