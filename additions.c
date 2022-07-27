@@ -241,3 +241,54 @@ char *_getenv(char *name)
 
 	return (copy);
 }
+
+/**
+ * tokens - tokenizes command line string
+ * @buffer: command line string to tokenize
+ * @delim: delimeter
+ *
+ * Return: double pointer to tokens
+ */
+
+char **tokens(char *buffer, char *delim)
+{
+	char *token, *buffercopy;
+	int i = 0;
+	int command_count = cmd_count(buffer);
+	char **commands = malloc(sizeof(char *) * (command_count + 1));
+
+	if (!commands)
+	{
+		perror("Error\n");
+		exit(-1);
+	}
+	buffercopy = _strdup(buffer);
+	if (!buffercopy)
+	{
+		perror("_strdup error\n");
+		return (NULL);
+	}
+	token = strtok(buffercopy, delim);
+
+	while (token)
+	{
+		commands[i] = malloc(sizeof(char) * (_strlen(token) + 1));
+		if (!commands[i])
+		{
+			perror("malloc error");
+			while (i >= 0)
+			{
+				free(commands[i]);
+				i--;
+			}
+			free(commands);
+			exit(-1);
+		}
+		_strcpy(commands[i], token);
+		i++;
+		token = strtok(NULL, delim);
+	}
+	commands[i] = NULL;
+	free(buffercopy);
+	return (commands);
+}

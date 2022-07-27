@@ -64,5 +64,6 @@ char *path_concat(char *s1, char *s2);
 void print_env(void);
 void shell_exit(char **args, char *cmd);
 int check_if_builtin(char **args, char *cmd_line);
+char **tokens(char *buffer, char *delim);
 
 #endif
