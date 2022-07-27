@@ -10,10 +10,10 @@
  * Return: int, 1 to continue loop, any other int on failure
  */
 
-int run(char **args, char *program, int n)
+int run(char **args, __attribute__((unused))char *program)
 {
 	pid_t child;
-	int status, linenum = n;
+	int status;
 
 	child = fork();
 	if (child == -1)
@@ -23,7 +23,7 @@ int run(char **args, char *program, int n)
 	}
 	if (child == 0)
 	{
-		check_valid_command(args, program, linenum);
+		check_valid_command(args);
 		exit(0);
 	}
 	else

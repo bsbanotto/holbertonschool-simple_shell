@@ -54,7 +54,7 @@ void cmd_prompt(char *program);
 void prompt_line(void);
 char clear(void);
 char *read_cmd(void);
-int run(char **path, char *program, int n);
+int run(char **path, char *program);
 int check_valid_command(char **args);
 void signal_handler (int sig);
 char *_getenv(char *name);

@@ -54,7 +54,7 @@ void cmd_prompt(char *program)
 		}
 		args = tokens(line, " \t\a\n");
 		if (check_if_builtin(args, line) == 1)
-			status = run(args, program, 1);
+			status = run(args, program);
 		while (args[i] != NULL)
 		{
 		if (args[i])
