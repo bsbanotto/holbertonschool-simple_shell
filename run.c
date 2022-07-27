@@ -5,7 +5,6 @@
  * run - runs first arg
  * @args: first arg passed from shell loop
  * @program: Name of program
- * @n: int = 1
  *
  * Return: int, 1 to continue loop, any other int on failure
  */
