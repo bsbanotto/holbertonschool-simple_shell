@@ -79,7 +79,7 @@ void cmd_prompt(char *program)
  * Return: Pointer to string
  */
 
-char *read_input(void)
+char *read_cmd(void)
 {
 	char *buffer = NULL;
 	size_t buffersize = 0;
