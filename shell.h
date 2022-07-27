@@ -35,8 +35,8 @@ extern char **environ;
 int print_list(const path_t *h);
 path_t *add_node_end(path_t **head, char *dir);
 path_t path_list(char *path);
-free_linked_list(path_t *head);
-make_path_list();
+path_t free_linked_list(path_t *head);
+path_t make_path_list();
 path_t *_environment(void);
 path_t *_getenv(char *name);
 char *check_path(path_t *head, char *command);
@@ -58,7 +58,11 @@ char *read_input(void);
 int run(char *path, char *argVec);
 int check_command(char *args, char *program, int n);
 void signal_handler (int sig);
-
-
+char *_getenv(char *name);
+int cmd_count(char *s);
+char *path_concat(char *s1, char *s2);
+void print_env(void);
+void shell_exit(char **args, char *cmd);
+int check_if_builtin(char **args, char *cmd_line);
 
 #endif
