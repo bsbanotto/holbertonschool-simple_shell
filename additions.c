@@ -20,11 +20,6 @@ int check_if_builtin(char **args, char *cmd_line)
 		print_env();
 		return (0);
 	}
-	else if (_strcmp(args[0], "cd") == 0)
-	{
-		cd(args);
-		return (0);
-	}
 	else
 		return (1);
 }
@@ -77,48 +72,6 @@ void print_env(void)
 		write(1, "\n", 1);
 		temp = temp->next;
 	}
-}
-
-/**
- * cd - changes workign dir
- * @new_dir: direct to change to
- *
- * Return: 0 on success
- */
-
-int cd(char **new_dir)
-{
-	chdir(new_dir[1]);
-	return (0);
-}
-
-
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-/* stuff from check path */
-
-char *check_path(path_t *head, char *command)
-{
-	path_t *temp;
-	char *filename;
-	struct stat st;
-
-	if (!command || !head)
-		return (NULL);
-
-	temp = head;
-
-	while (temp)
-	{
-		filename = path_concat(temp->dir, command);
-		if (!filename)
-			return (NULL);
-		if (stat(filename, &st) == 0)
-			return (filename);
-		free(filename);
-		temp = temp->next;
-	}
-	return (NULL);
 }
 
 
