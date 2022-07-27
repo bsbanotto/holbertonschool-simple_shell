@@ -15,7 +15,7 @@ int check_if_builtin(char **args, char *cmd_line)
 		shell_exit(args, cmd_line);
 		return (0);
 	}
-	else if (_strcmp[0], "env") == 0)
+	else if (_strcmp(args[0], "env") == 0)
 	{
 		print_env();
 		return (0);
@@ -33,8 +33,8 @@ int check_if_builtin(char **args, char *cmd_line)
 void shell_exit(char **args, char *cmd)
 {
 	unsigned int i = 0;
-	path_t *env_path = _enviornment();
-	path_t *main_path = make_path_list();
+	path_t *env_path = _environment();
+	path_t *main_path = path_list();
 
 	if (!cmd)
 		free(cmd);
@@ -63,7 +63,7 @@ void shell_exit(char **args, char *cmd)
 void print_env(void)
 {
 	path_t *temp;
-	path_t *env_path = _enviornment();
+	path_t *env_path = _environment();
 
 	temp = env_path;
 	while (temp)
@@ -140,38 +140,6 @@ path_t *make_path_list(void)
 }
 
 /**
- * path_concat - concats path with command
- * @s1: first string
- * @s2: second string
- *
- * Return: pointer to concat path string
- */
-
-char *path_concat(char *s1, char *s2)
-{
-	int i, j;
-	char *path_str;
-
-	if (s1 == NULL)
-		s1 = "";
-	if (s2 == NULL)
-		s2 = "";
-
-	path_str = malloc(sizeof(char) * (_strlen(s1) + _strlen(s2) + 2));
-	if (path_str == NULL)
-		exit(-1);
-
-	for (i = 0; s1[i]; i++)
-		path_str[i] = s1[i];
-	path_str[i] = '/';
-	i++;
-	for (j = 0; s2[j]; j++)
-		path_str[i + j] = s2[j];
-	path_str[i + j] = '\0';
-	return (path_str);
-}
-
-/**
  * cmd_count - Counts number of commands entered
  * @s: pointer to command line string
  *
@@ -200,46 +168,6 @@ int cmd_count(char *s)
 			delims = 0;
 	}
 	return (words);
-}
-
-/**
- * _getenv - searches environment list for variable name
- * @name: name of the variable
- *
- * Return: returns a pointer to the corresponding value;
- */
-char *_getenv(char *name)
-{
-	unsigned int y;
-	char *match, *copy;
-	path_t *temp;
-	path_t *env_path = _environment();
-
-	match = NULL;
-	temp = env_path;
-
-	while (temp)
-	{
-		y = 0;
-		while (name[y])
-		{
-			if (name[y] != temp->dir[y])
-				break;
-			if (name[y + 1] == '\0' && temp->dir[y + 1] == '=')
-				match = temp->dir;
-			y++;
-		}
-		if (match)
-			break;
-		temp = temp->next;
-	}
-
-	copy = malloc(sizeof(char *) * (_strlen(match)));
-	if (!copy)
-		exit(-1);
-	_strcpy(copy, match);
-
-	return (copy);
 }
 
 /**

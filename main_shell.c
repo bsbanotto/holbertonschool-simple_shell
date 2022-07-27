@@ -40,7 +40,7 @@ void cmd_prompt(char *program)
 	char **args;
 	int i, status = 1;
 	path_t *env_path = _environment();
-	path_t *main_path = main_path_list();
+	path_t *main_path = path_list();
 
 	signal(SIGINT, signal_handler);
 
@@ -55,7 +55,7 @@ void cmd_prompt(char *program)
 		args = tokens(line, " \t\a\n");
 		if (check_if_builtin(args, line) == 1)
 			status = run(args, program, 1);
-		while (args[i] != NUL)
+		while (args[i] != NULL)
 		{
 		if (args[i])
 			free(args[i]);

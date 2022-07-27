@@ -100,30 +100,42 @@ int arg_count(char *path)
  * Return: pointer to head
  */
 
-path_t path_list(char *path)
+path_t *path_list(void)
 {
-	int i = 0;
-	path_t *head;
-	char *p = strtok(path, "/");
-	path_t *first = malloc(sizeof(path_t));
-	int count = arg_count(path);
+	path_t *head, *temp;
+	char *path_name = NULL, *tok;
 
-	head = first;
-	first->dir = p;
-	first->next = NULL;
+	temp = malloc(sizeof(path_t));
+	if (!temp)
+		exit(-1);
 
-	if (first == NULL)
+	path_name = _getenv("PATH");
+
+	if (!path_name)
 	{
-		head = first;
-		return (*head);
+		free(temp);
+		return (NULL);
 	}
+	tok = strtok(path_name, ":");
 
-	/* Saves tokens to linked list */
-	while (i < count)
+	head = temp;
+	while (tok)
 	{
-		p = strtok(NULL, " ");
-		add_node_end(&head, p);
+		temp->dir = _strdup(tok);
+		tok = strtok(NULL, ":");
+		if (tok)
+		{
+			temp->next = malloc(sizeof(path_t));
+			if (!temp->next)
+			{
+				free_linked_list(head);
+				exit(-1);
+			}
+			temp = temp->next;
+		}
+		else
+			temp->next = NULL;
 	}
-
-	return (*head);
+	free(path_name);
+	return (head);
 }

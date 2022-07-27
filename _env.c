@@ -40,7 +40,7 @@ path_t *_environment(void)
  */
 char *_getenv(char *name)
 {
-	unsigned int y;
+	unsigned int i;
 	char *match, *copy;
 	path_t *temp;
 	path_t *env_path = _environment();
@@ -50,14 +50,14 @@ char *_getenv(char *name)
 
 	while (temp)
 	{
-		y = 0;
-		while (name[y])
+		i = 0;
+		while (name[i])
 		{
-			if (name[y] != temp->dir[y])
+			if (name[i] != temp->dir[i])
 				break;
-			if (name[y + 1] == '\0' && temp->dir[y + 1] == '=')
+			if (name[i + 1] == '\0' && temp->dir[i + 1] == '=')
 				match = temp->dir;
-			y++;
+			i++;
 		}
 		if (match)
 			break;

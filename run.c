@@ -43,11 +43,10 @@ int run(char **args, char *program, int n)
  * Return: 0 on success
  */
 
-int check_valid_command(char **args, char *program, int n)
+int check_valid_command(char **args, __attribute__((unused))char *program, __attribute__((unused))int n)
 {
 	char *result;
-	int linenum = n;
-	path_t *main_path = make_path_list();
+	path_t *main_path = path_list();
 
 	if (args[0][0] == '/' || args[0][0] == '.')
 	{
