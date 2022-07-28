@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
 void prompt_line(void)
 {
-	write(1, "$ ", 2);
+	write(1, "($) ", 4);
 }
 
 /**
