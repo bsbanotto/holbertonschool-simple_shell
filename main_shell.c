@@ -38,7 +38,7 @@ void cmd_prompt(char *program)
 {
 	char *line;
 	char **args;
-	int i, status = 1;
+	int i = 0, status = 1;
 	path_t *env_path = _environment();
 	path_t *main_path = path_list();
 
