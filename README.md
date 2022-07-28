@@ -26,7 +26,7 @@ $ echo "echo 'hello'" | ./hsh
 $
 ```
 
-If **hsh** is invoked with standard input connected to a terminal (determined by [isatty](https://linux.die.net/man/3/isatty)(3)), an *interactive* shell is opened. When executing interactively, **shellby** displays the prompt `$ ` when it is ready to read a command.
+If **hsh** is invoked with standard input connected to a terminal (determined by [isatty](https://linux.die.net/man/3/isatty)(3)), an *interactive* shell is opened. When executing interactively, **hsh** displays the prompt `$ ` when it is ready to read a command.
 
 Example:
 ```
@@ -34,7 +34,7 @@ $./hsh
 $
 ```
 
-Alternatively, if command line arguments are supplied upon invocation, **hsh** treats the first argument as a file from which to read commands. The supplied file should contain one command per line. **Shellby** runs each of the commands contained in the file in order before exiting.
+Alternatively, if command line arguments are supplied upon invocation, **hsh** treats the first argument as a file from which to read commands. The supplied file should contain one command per line. **hsh** runs each of the commands contained in the file in order before exiting.
 
 Example:
 ```
@@ -75,9 +75,9 @@ $ echo "echo $PATH" | ./hsh
 
 ### Command Execution
 
-After receiving a command, **hsh** tokenizes it into words using `" "` as a delimiter. The first word is considered the command and all remaining words are considered arguments to that command. **Shellby** then proceeds with the following actions:
+After receiving a command, **hsh** tokenizes it into words using `" "` as a delimiter. The first word is considered the command and all remaining words are considered arguments to that command. **hsh** then proceeds with the following actions:
 1. If the first character of the command is neither a slash (`\`) nor dot (`.`), the shell searches for it in the list of shell builtins. If there exists a builtin by that name, the builtin is invoked.
-2. If the first character of the command is none of a slash (`\`), dot (`.`), nor builtin, **shellby** searches each element of the **PATH** environmental variable for a directory containing an executable file by that name.
+2. If the first character of the command is none of a slash (`\`), dot (`.`), nor builtin, **hsh** searches each element of the **PATH** environmental variable for a directory containing an executable file by that name.
 3. If the first character of the command is a slash (`\`) or dot (`.`) or either of the above searches was successful, the shell executes the named program with any remaining given arguments in a separate execution environment.
 
 ### Exit Status
@@ -105,7 +105,7 @@ The second `$` is substitued with the current process ID.
 
 Example:
 ```
-$ echo "echo $$" | ./shellby
+$ echo "echo $$" | ./hsh
 6494
 ```
 $ pwd
@@ -141,5 +141,5 @@ NVM_DIR=/home/vagrant/.nvm
 
 ## Authors :black_nib:
 
-* Alex Yu <[AlexYu01](https://github.com/AlexYu01)>
-* Brennan D Baraban <[bdbaraban](https://github.com/bdbaraban)>
+* Ben Sbanotto <[bsbanotto](https://github.com/bsbanotto)>
+* Brayden Vernon <[Vernon-444](https://github.com/Vernon-444)>
